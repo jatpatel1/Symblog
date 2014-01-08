@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: '3306'
+    database_name: symblog
+    database_user: root
+    database_password: k1ddiVou
+    mailer_transport: gmail
+    mailer_host: smtp.gmail.com
+    mailer_user: jatin.patel
+    mailer_password: this_needs_to_be_Set
+    locale: en
+    secret: kasdfiouwe7890234234jk2392391238938238fjefjwefhwehwehwehwehwe
