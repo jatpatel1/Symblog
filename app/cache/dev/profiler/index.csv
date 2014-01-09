@@ -49,3 +49,11 @@ f8fb49,127.0.0.1,GET,http://symblog/app_dev.php/_fragment?_path=_format%3Dhtml%2
 5a4a5a,127.0.0.1,GET,http://symblog/app_dev.php/,1389275638,
 220c27,127.0.0.1,GET,http://symblog/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DBloggerBlogBundle%253APage%253Asidebar,1389275639,8164b2
 8164b2,127.0.0.1,GET,http://symblog/app_dev.php/,1389275639,
+4ac13e,127.0.0.1,GET,http://symblog/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DBloggerBlogBundle%253APage%253Asidebar,1389277461,9a6037
+9a6037,127.0.0.1,GET,http://symblog/app_dev.php/,1389277461,
+1be24b,127.0.0.1,GET,http://symblog/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DBloggerBlogBundle%253APage%253Asidebar,1389278484,580671
+580671,127.0.0.1,GET,http://symblog/app_dev.php/,1389278484,
+a2e487,127.0.0.1,GET,http://symblog/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DBloggerBlogBundle%253APage%253Asidebar,1389279596,bab35b
+bab35b,127.0.0.1,GET,http://symblog/app_dev.php/,1389279596,
+4a6cbf,127.0.0.1,GET,http://symblog/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DBloggerBlogBundle%253APage%253Asidebar,1389280006,654505
+654505,127.0.0.1,GET,http://symblog/app_dev.php/,1389280006,
