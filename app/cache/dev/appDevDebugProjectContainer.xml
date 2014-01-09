@@ -419,7 +419,9 @@
     <parameter key="assetic.value_supplier.class">Symfony\Bundle\AsseticBundle\DefaultValueSupplier</parameter>
     <parameter key="assetic.node.paths" type="collection"/>
     <parameter key="assetic.cache_dir">/home/jatin.patel/Documents/Projects/Symblog/app/cache/dev/assetic</parameter>
-    <parameter key="assetic.bundles" type="collection"/>
+    <parameter key="assetic.bundles" type="collection">
+      <parameter>BloggerBlogBundle</parameter>
+    </parameter>
     <parameter key="assetic.twig_extension.class">Symfony\Bundle\AsseticBundle\Twig\AsseticExtension</parameter>
     <parameter key="assetic.twig_formula_loader.class">Assetic\Extension\Twig\TwigFormulaLoader</parameter>
     <parameter key="assetic.helper.dynamic.class">Symfony\Bundle\AsseticBundle\Templating\DynamicAsseticHelper</parameter>
@@ -436,6 +438,12 @@
     <parameter key="assetic.ruby.bin">/usr/bin/ruby</parameter>
     <parameter key="assetic.sass.bin">/usr/bin/sass</parameter>
     <parameter key="assetic.filter.cssrewrite.class">Assetic\Filter\CssRewriteFilter</parameter>
+    <parameter key="assetic.filter.yui_css.class">Assetic\Filter\Yui\CssCompressorFilter</parameter>
+    <parameter key="assetic.filter.yui_css.java">/usr/bin/java</parameter>
+    <parameter key="assetic.filter.yui_css.jar">/home/jatin.patel/Documents/Projects/Symblog/app/Resources/java/yuicompressor-2.4.8.jar</parameter>
+    <parameter key="assetic.filter.yui_css.charset">UTF-8</parameter>
+    <parameter key="assetic.filter.yui_css.stacksize">null</parameter>
+    <parameter key="assetic.filter.yui_css.timeout">null</parameter>
     <parameter key="assetic.twig_extension.functions" type="collection"/>
     <parameter key="assetic.controller.class">Symfony\Bundle\AsseticBundle\Controller\AsseticController</parameter>
     <parameter key="assetic.routing_loader.class">Symfony\Bundle\AsseticBundle\Routing\AsseticLoader</parameter>
@@ -2094,7 +2102,9 @@
             <argument type="service" id="templating.name_parser"/>
             <argument>true</argument>
             <argument type="collection"/>
-            <argument type="collection"/>
+            <argument type="collection">
+              <argument>BloggerBlogBundle</argument>
+            </argument>
             <argument type="service" id="assetic.value_supplier.default" on-invalid="null"/>
           </service>
         </argument>
@@ -2157,6 +2167,7 @@
       <argument type="service" id="service_container"/>
       <argument type="collection">
         <argument key="cssrewrite">assetic.filter.cssrewrite</argument>
+        <argument key="yui_css">assetic.filter.yui_css</argument>
       </argument>
     </service>
     <service id="assetic.asset_manager" class="Assetic\Factory\LazyAssetManager">
@@ -2181,6 +2192,33 @@
           </service>
         </argument>
       </argument>
+      <call method="addResource">
+        <argument type="service">
+          <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource" public="false">
+            <tag name="assetic.templating.twig"/>
+            <tag name="assetic.formula_resource" loader="twig"/>
+            <argument type="collection">
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
+                  <argument>BloggerBlogBundle</argument>
+                  <argument>/home/jatin.patel/Documents/Projects/Symblog/app/Resources/BloggerBlogBundle/views</argument>
+                  <argument>/\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
+                  <argument>BloggerBlogBundle</argument>
+                  <argument>/home/jatin.patel/Documents/Projects/Symblog/src/Blogger/BlogBundle/Resources/views</argument>
+                  <argument>/\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+            </argument>
+          </service>
+        </argument>
+        <argument>twig</argument>
+      </call>
       <call method="addResource">
         <argument type="service">
           <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource" public="false">
@@ -2216,6 +2254,20 @@
     </service>
     <service id="assetic.filter.cssrewrite" class="Assetic\Filter\CssRewriteFilter">
       <tag name="assetic.filter" alias="cssrewrite"/>
+    </service>
+    <service id="assetic.filter.yui_css" class="Assetic\Filter\Yui\CssCompressorFilter">
+      <tag name="assetic.filter" alias="yui_css"/>
+      <argument>/home/jatin.patel/Documents/Projects/Symblog/app/Resources/java/yuicompressor-2.4.8.jar</argument>
+      <argument>/usr/bin/java</argument>
+      <call method="setCharset">
+        <argument>UTF-8</argument>
+      </call>
+      <call method="setTimeout">
+        <argument>null</argument>
+      </call>
+      <call method="setStackSize">
+        <argument>null</argument>
+      </call>
     </service>
     <service id="assetic.controller" class="Symfony\Bundle\AsseticBundle\Controller\AsseticController" scope="prototype">
       <argument type="service" id="request"/>

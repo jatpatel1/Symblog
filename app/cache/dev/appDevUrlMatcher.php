@@ -27,6 +27,27 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         $context = $this->context;
         $request = $this->request;
 
+        if (0 === strpos($pathinfo, '/css/blogger')) {
+            // _assetic_e95c551
+            if ($pathinfo === '/css/blogger.css') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'e95c551',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_e95c551',);
+            }
+
+            if (0 === strpos($pathinfo, '/css/blogger_part_1_')) {
+                // _assetic_e95c551_0
+                if ($pathinfo === '/css/blogger_part_1_blog_1.css') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'e95c551',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_e95c551_0',);
+                }
+
+                // _assetic_e95c551_1
+                if ($pathinfo === '/css/blogger_part_1_sidebar_2.css') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'e95c551',  'pos' => 1,  '_format' => 'css',  '_route' => '_assetic_e95c551_1',);
+                }
+
+            }
+
+        }
+
         if (0 === strpos($pathinfo, '/_')) {
             // _wdt
             if (0 === strpos($pathinfo, '/_wdt') && preg_match('#^/_wdt/(?P<token>[^/]++)$#s', $pathinfo, $matches)) {
@@ -173,13 +194,13 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         not_BloggerBlogBundle_contact:
 
         // BloggerBlogBundle_blog_show
-        if (preg_match('#^/(?P<id>\\d+)$#s', $pathinfo, $matches)) {
+        if (preg_match('#^/(?P<id>\\d+)/(?P<slug>[^/]++)(?:/(?P<comments>[^/]++))?$#s', $pathinfo, $matches)) {
             if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
                 $allow = array_merge($allow, array('GET', 'HEAD'));
                 goto not_BloggerBlogBundle_blog_show;
             }
 
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'BloggerBlogBundle_blog_show')), array (  '_controller' => 'Blogger\\BlogBundle\\Controller\\BlogController::showAction',));
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'BloggerBlogBundle_blog_show')), array (  '_controller' => 'Blogger\\BlogBundle\\Controller\\BlogController::showAction',  'comments' => true,));
         }
         not_BloggerBlogBundle_blog_show:
 
